@@ -17,13 +17,13 @@ return [
             'class' => 'yii\caching\FileCache',
         ],
         //redis Cache
-//        'cache' => [
-//            'class' => 'common\components\Redis',
-//            'host' => '127.0.0.1',
-//            'port' => '6379',
-//            'database' => 0,
-//            'pconnect'=>1
-//        ],
+        'cache' => [
+            'class' => 'common\components\Redis',
+            'host' => '127.0.0.1',
+            'port' => '6379',
+            'database' => 0,
+            'pconnect'=>1
+        ],
         //default db
         'db' => [
             'class' => 'yii\db\Connection',
