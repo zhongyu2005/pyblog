@@ -4,20 +4,19 @@ namespace common\models\com;
 
 use yii\db\ActiveRecord;
 
-class UserModel extends ActiveRecord
+class RoleModel extends ActiveRecord
 {
 
     public static function tableName()
     {
-        return 'com_user';
+        return 'com_role';
     }
 
     public function rules()
     {
         return [
             [[
-                'username', 'password_hash', 'password_reset_token', 'email', 'auth_key', 'status',
-                'super_admin', 'role_id',
+                'name', 'mark',
                 'created_at', 'updated_at', 'deleted'
             ], 'safe']
         ];

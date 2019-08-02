@@ -24,7 +24,7 @@ class BackendController extends \yii\web\Controller
         if (empty($userInfo->id)) {
             $this->goLogOut();
         }
-        $this->userInfo = $userInfo->attributes();
+        $this->userInfo = $userInfo->attributes;
         if (empty($this->userInfo)) {
             $this->goLogOut();
         }

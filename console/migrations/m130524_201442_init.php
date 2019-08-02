@@ -14,7 +14,7 @@ class m130524_201442_init extends Migration
 
         $this->createTable('com_user', [
             'id' => $this->primaryKey(),
-            'username' => $this->string(30)->notNull()->defaultValue('')->unique(),
+            'username' => $this->string(30)->notNull()->defaultValue(''),
             'auth_key' => $this->string(32)->notNull()->defaultValue(''),
             'password_hash' => $this->string()->notNull()->defaultValue(''),
             'password_reset_token' => $this->string()->defaultValue(''),
@@ -22,6 +22,7 @@ class m130524_201442_init extends Migration
 
             'status' => $this->smallInteger()->notNull()->defaultValue(10),
             'super_admin' => $this->tinyInteger()->notNull()->defaultValue(0),
+            'role_id' => $this->integer()->notNull()->defaultValue(0),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
             'deleted' => $this->tinyInteger()->notNull()->defaultValue(0),
