@@ -1,7 +1,6 @@
 <?php
 namespace backend\controllers;
 
-use Yii;
 use common\controllers\BackendController;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -59,7 +58,7 @@ class SiteController extends BackendController
      */
     public function actionIndex()
     {
-        return $this->redirect("?r=content/welcome/index");
+        return $this->redirect("?r=content/default/index");
     }
 
 

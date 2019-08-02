@@ -21,6 +21,7 @@ class m130524_201442_init extends Migration
             'email' => $this->string()->notNull()->defaultValue(''),
 
             'status' => $this->smallInteger()->notNull()->defaultValue(10),
+            'super_admin' => $this->tinyInteger()->notNull()->defaultValue(0),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
             'deleted' => $this->tinyInteger()->notNull()->defaultValue(0),
