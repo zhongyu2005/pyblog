@@ -12,22 +12,24 @@ class m130524_201442_init extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
-        $this->createTable('{{%user}}', [
+        $this->createTable('com_user', [
             'id' => $this->primaryKey(),
-            'username' => $this->string()->notNull()->unique(),
-            'auth_key' => $this->string(32)->notNull(),
-            'password_hash' => $this->string()->notNull(),
-            'password_reset_token' => $this->string()->unique(),
-            'email' => $this->string()->notNull()->unique(),
+            'username' => $this->string(30)->notNull()->defaultValue('')->unique(),
+            'auth_key' => $this->string(32)->notNull()->defaultValue(''),
+            'password_hash' => $this->string()->notNull()->defaultValue(''),
+            'password_reset_token' => $this->string()->defaultValue(''),
+            'email' => $this->string()->notNull()->defaultValue(''),
 
             'status' => $this->smallInteger()->notNull()->defaultValue(10),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
+            'deleted' => $this->tinyInteger()->notNull()->defaultValue(0),
         ], $tableOptions);
+        $this->createIndex('idx_username', 'com_user', 'username');
     }
 
     public function down()
     {
-        $this->dropTable('{{%user}}');
+        $this->dropTable('com_user');
     }
 }

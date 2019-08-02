@@ -5,57 +5,31 @@
 /* @var $model \common\models\LoginForm */
 
 use yii\helpers\Html;
+use yii\bootstrap\ActiveForm;
 
 $this->title = 'Login';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-<style>
-    .site-login {
-        margin-top: 10%;
-        min-width: 640px;
-    }
-
-    .form-captcha {
-        padding: 10px 0;
-    }
-</style>
-<script type="text/javascript">
-    // 当前窗口不等于父窗口
-    if (window.parent != window.self) {
-        window.top.location.href = '?r=auth/login';
-    }
-</script>
 <div class="site-login">
-    <form class="form-signin" method="post" action="?r=auth/login">
-        <h2 class="form-signin-heading">管理后台</h2>
-        <br>
-        <?php if (isset($vars['error'])): ?>
-            <p class="text-danger error"><?=$vars['error']?></p>
-        <?php endif; ?>
+    <h1><?= Html::encode($this->title) ?></h1>
 
-        <label for="username" class="sr-only">账号</label>
-        <input type="text" id="username" maxlength="22" name="LoginForm[username]" class="form-control"
-               value="<?= isset($vars['LoginForm']['username']) ? $vars['LoginForm']['username'] : '' ?>" placeholder="账号"
-               required autofocus>&nbsp;
-        <label for="password" class="sr-only">密码</label>
-        <input type="password" id="password" name="LoginForm[password]" maxlength="12" class="form-control"
-               placeholder="密码"
-               required>
+    <p>Please fill out the following fields to login:</p>
 
-        <div class="form-captcha row">
-            <div class="col-md-3 col-sm-3 col-xs-3">
-                <input type="text" maxlength="5" name="captcha" class="form-control" required>
+    <div class="row">
+        <div class="col-lg-5">
+            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+
+            <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+
+            <?= $form->field($model, 'password')->passwordInput() ?>
+
+            <?= $form->field($model, 'rememberMe')->checkbox() ?>
+
+            <div class="form-group">
+                <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
             </div>
-            <div class="col-md-3 col-sm-3 col-xs-3">
-                <img style="height: 30px;" class="" title="点击刷新" src="?r=auth/captcha"
-                     onclick="this.src='?r=auth/captcha&'+Math.random();"/>
-            </div>
-        </div>
 
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" name="LoginForm[rememberMe]" value="1"> 记住账号
-            </label>
+            <?php ActiveForm::end(); ?>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
-    </form>
+    </div>
 </div>

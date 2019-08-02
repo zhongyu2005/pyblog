@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use common\controllers\BackendController;
+use Gregwar\Captcha\CaptchaBuilder;
 use Yii;
 use common\models\LoginForm;
 use common\models\User;
@@ -23,7 +24,7 @@ class AuthController extends BackendController
      */
     public function actionLogin()
     {
-        if (!Yii::$app->user->isGuest) {
+        if (!Yii::$app->getUser()->getIsGuest()) {
             return $this->goHome();
         }
         $vars = [];
@@ -66,9 +67,10 @@ class AuthController extends BackendController
         $builder = new CaptchaBuilder(null);
         $builder->build();
         header('Content-type: image/jpeg');
-        $builder->output();
         $this->setSession('auth_captcha', $builder->getPhrase());
-        yii::$app->end();
+        Yii::$app->getResponse()->send();
+        $builder->output();
+        Yii::$app->end();
     }
 
 

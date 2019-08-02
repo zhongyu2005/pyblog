@@ -8,21 +8,23 @@ use yii;
 
 class BackendController extends \yii\web\Controller
 {
+    public $enableCsrfValidation = false;
     protected $needLogin = true;
     public $userInfo;
 
     public function init()
     {
         parent::init();
-
-        $user=Yii::$app->getUser();
+        if (!$this->needLogin) {
+            return;
+        }
+        $user = Yii::$app->getUser();
         $this->needLogin && $user->getIsGuest() && $this->goLogin();
-
-        $userInfo=$user->getIdentity();
-        if(empty($userInfo->id)){
+        $userInfo = $user->getIdentity();
+        if (empty($userInfo->id)) {
             $this->goLogOut();
         }
-        $this->userInfo=$userInfo->attributes();
+        $this->userInfo = $userInfo->attributes();
         if (empty($this->userInfo)) {
             $this->goLogOut();
         }
@@ -31,9 +33,10 @@ class BackendController extends \yii\web\Controller
     public function beforeAction($action)
     {
         $result = parent::beforeAction($action);
-        if ($this->loginRequired) {
-            //todo
+        if (!$this->needLogin) {
+            return $result;
         }
+        //todo
         return $result;
     }
 
@@ -42,6 +45,7 @@ class BackendController extends \yii\web\Controller
         $this->redirect('?r=auth/login');
         Yii::$app->end();
     }
+
     public function goLogOut()
     {
         $this->redirect('?r=auth/logout');
