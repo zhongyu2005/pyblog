@@ -20,4 +20,23 @@ class RoleMenuModel extends ActiveRecord
             ], 'safe']
         ];
     }
+
+    public static function saveRoleMenu($menuIds,$role_id){
+        RoleMenuModel::updateAll(['deleted' => 1], ['role_id' => $role_id]);
+
+        if (!empty($menuIds)) {
+            foreach ($menuIds as $id) {
+                $where = ['role_id' => $role_id, 'menu_id' => $id];
+                $row = RoleMenuModel::find()->where($where)->one();
+                if (empty($row)) {
+                    $row = new RoleMenuModel();
+                    $row->role_id = $role_id;
+                    $row->menu_id = $id;
+                }
+                $row->deleted = 0;
+                $row->save();
+            }
+        }
+        return true;
+    }
 }
