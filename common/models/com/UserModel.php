@@ -17,7 +17,7 @@ class UserModel extends ActiveRecord
         return [
             [[
                 'username', 'password_hash', 'password_reset_token', 'email', 'auth_key', 'status',
-                'super_admin', 'role_id',
+                'super_admin', 'role_id','role_name',
                 'created_at', 'updated_at', 'deleted'
             ], 'safe']
         ];

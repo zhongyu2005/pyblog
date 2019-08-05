@@ -3,6 +3,7 @@
 namespace common\models\com;
 
 use yii\db\ActiveRecord;
+use yii\db\Query;
 
 class RoleModel extends ActiveRecord
 {
@@ -20,5 +21,12 @@ class RoleModel extends ActiveRecord
                 'created_at', 'updated_at', 'deleted'
             ], 'safe']
         ];
+    }
+
+    public static function getRoles()
+    {
+        $q = new Query();
+        $q->from(self::tableName())->select(['id', 'name'])->where(['deleted' => 0]);
+        return $q->all();
     }
 }

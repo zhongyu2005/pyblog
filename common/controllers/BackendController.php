@@ -57,7 +57,7 @@ class BackendController extends \yii\web\Controller
         return CommonFunc::get($name, $default);
     }
 
-    public function post($name, $default)
+    public function post($name, $default = null)
     {
         return CommonFunc::post($name, $default);
     }
@@ -95,5 +95,10 @@ class BackendController extends \yii\web\Controller
     public function getConfig($key)
     {
         return CommonFunc::getConfig($key);
+    }
+
+    public function ajaxReturn($data = null, $message = '', $code = '0')
+    {
+        CommonFunc::returnJson($data, $message, $code);
     }
 }

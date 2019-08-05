@@ -23,6 +23,7 @@ class m130524_201442_init extends Migration
             'status' => $this->smallInteger()->notNull()->defaultValue(10),
             'super_admin' => $this->tinyInteger()->notNull()->defaultValue(0),
             'role_id' => $this->integer()->notNull()->defaultValue(0),
+            'role_name' => $this->string(50)->notNull()->defaultValue(''),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
             'deleted' => $this->tinyInteger()->notNull()->defaultValue(0),
