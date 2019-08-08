@@ -3,6 +3,7 @@
 
 namespace common\controllers;
 
+use common\models\com\MenuModel;
 use common\utils\CommonFunc;
 use yii;
 
@@ -11,6 +12,7 @@ class BackendController extends \yii\web\Controller
     public $enableCsrfValidation = false;
     protected $needLogin = true;
     public $userInfo;
+    public $menu;
 
     public function init()
     {
@@ -36,7 +38,8 @@ class BackendController extends \yii\web\Controller
         if (!$this->needLogin) {
             return $result;
         }
-        //todo
+        $menu = MenuModel::getAll(['type' => MenuModel::TYPE_MENU]);
+        $this->menu = MenuModel::menuTree($menu, 2);
         return $result;
     }
 

@@ -41,7 +41,7 @@ class MenuModel extends ActiveRecord
     public static function getAll($where)
     {
         $q = new Query();
-        $q->from(self::tableName())->where($where)->orderBy(['pid' => SORT_ASC, 'sort' => SORT_ASC]);
+        $q->from(self::tableName())->where($where)->andWhere(['deleted' => 0, 'status' => 0])->orderBy(['pid' => SORT_ASC, 'sort' => SORT_ASC]);
         return $q->all();
     }
 
@@ -65,23 +65,22 @@ class MenuModel extends ActiveRecord
                 continue;
             }
         }
-        if($level=='3'){
-            if(count($leaf)) {
+        if ($level == '3') {
+            if (count($leaf)) {
                 foreach ($leaf as $val) {
                     if (isset($branch[$val['pid']])) {
-                        $branch[$val['pid']]['sub'][] = $val;
+                        $branch[$val['pid']]['sub'] = $val;
                     }
                 }
             }
         }
-        if(count($branch)) {
+        if (count($branch)) {
             foreach ($branch as $val) {
                 if (isset($root[$val['pid']])) {
-                    $root[$val['pid']]['sub'][] = $branch;
+                    $root[$val['pid']]['sub'] = array_values($branch);
                 }
             }
         }
-        return $root;
-
+        return array_values($root);
     }
 }
