@@ -202,7 +202,7 @@ class CommonFunc
 
     public static function get($name, $default = null)
     {
-        $data = Yii::$app->request->get($name, $defaultValue);
+        $data = Yii::$app->request->get($name, $default);
         return $data;
     }
 
@@ -211,7 +211,7 @@ class CommonFunc
         if (isset($_GET['post']) && $_GET['post'] == '1') {
             return self::get($name, $default);
         }
-        $data = Yii::$app->request->post($name, $defaultValue);
+        $data = Yii::$app->request->post($name, $default);
         return $data;
     }
 
