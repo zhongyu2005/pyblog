@@ -104,4 +104,16 @@ class BackendController extends \yii\web\Controller
     {
         CommonFunc::returnJson($data, $message, $code);
     }
+
+    public function dataTableReturn($data, $total)
+    {
+        header('Content-Type:application/json; charset=utf-8');
+        $ret = [
+            'data' => $data,
+            'iTotalRecords' => count($data),//显示数
+            'iTotalDisplayRecords' => $total,//总数
+        ];
+        echo json_encode($ret, JSON_UNESCAPED_UNICODE);
+        Yii::$app->end();
+    }
 }

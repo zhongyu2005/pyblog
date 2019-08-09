@@ -36,8 +36,8 @@ class RoleController extends BackendController
             $q->offset($offset)->limit($length);
             $list = $q->all();
         }
-        $ret = ['count' => $count, 'list' => $list];
-        $this->ajaxReturn($ret);
+//        $ret = ['count' => $count, 'list' => $list];
+        $this->dataTableReturn($list,$count);
     }
 
     public function actionCreate()

@@ -109,5 +109,6 @@ use yii\helpers\Html;
     <script src="resources/js/fastclick.min.js"></script>
     <script src="resources/js/bootstrap.min.js"></script>
     <script src="resources/js/clearmin.min.js"></script>
+    <script src="https://cdn.bootcss.com/layer/3.1.0/layer.js"></script>
     </html>
 <?php $this->endPage() ?>
