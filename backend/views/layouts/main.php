@@ -17,7 +17,8 @@ use yii\helpers\Html;
         <?= Html::csrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
-        <script src="resources/js/lib/jquery-2.1.3.min.js"></script>
+        <script type="text/javascript" src="resources/js/lib/jquery-2.1.3.min.js"></script>
+        <script type="text/javascript" src="resources/js/common.js"></script>
     </head>
     <body class="cm-no-transition">
     <?php $this->beginBody() ?>

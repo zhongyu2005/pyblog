@@ -1,3 +1,6 @@
+<?php
+$this->title = '菜单列表';
+?>
 <style>
     i.fa {
         cursor: pointer;
@@ -113,14 +116,6 @@
             }
         }
         $("#menu-table tbody").html(ar.join(''));
-    }
-
-    function s_render(str, param) {
-        var reg = /{([^{}]+)}/gm;
-        str = str.replace(reg, function (match, name) {
-            return param[name];
-        })
-        return str;
     }
 </script>
 <script type="text/template" id="tpl">

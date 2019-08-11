@@ -1,18 +1,13 @@
 <?php
-isset($menu['type']) || $menu['type'] = 1;
-isset($menu['status']) || $menu['status'] = 0;
-
-$this->title = '菜单创建';
-
+$this->tittle = "角色更新";
 ?>
 <style>
-
 </style>
 <div class="container-fluid">
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading">
-                菜单创建
+                菜单更新
             </div>
             <div class="panel-body">
                 <form class="form-horizontal" id="addForm">

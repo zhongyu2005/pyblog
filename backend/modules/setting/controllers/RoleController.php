@@ -31,10 +31,17 @@ class RoleController extends BackendController
             $q->andWhere(['like', 'name', $name]);
         }
         $count = $q->count();
+        $list=[];
         if ($count) {
             $q->select(['id', 'name', 'mark', 'updated_at']);
             $q->offset($offset)->limit($length);
             $list = $q->all();
+            if(!empty($list)){
+                foreach ($list as &$val){
+                    $val['updated_at']=$val['updated_at']>0 ? date("Y-m-d H:i") : '-';
+                }
+                unset($val);
+            }
         }
 //        $ret = ['count' => $count, 'list' => $list];
         $this->dataTableReturn($list,$count);
@@ -43,7 +50,13 @@ class RoleController extends BackendController
     public function actionCreate()
     {
         if (!$this->isAjax()) {
-            return $this->render('create');
+            $id = $this->get('id');
+            $set = [];
+            if ($id > 0) {
+                $set = RoleModel::find()->where(['id' => $id, 'deleted' => 0])
+                    ->asArray()->limit(1)->one();
+            }
+            return $this->render('create', compact('set'));
         }
         $name = $this->post('name');
         $mark = $this->post('mark');
@@ -75,8 +88,7 @@ class RoleController extends BackendController
             if (empty($set)) {
                 $this->redirect('?r=setting/role/index');
             }
-            $role = $set->attributes;
-            return $this->render('update', ['role' => $role]);
+            return $this->render('update', ['set' => $set->attributes]);
         }
         if (empty($set)) {
             $this->ajaxReturn(null, "编辑的内容不存在", 1);
@@ -115,7 +127,6 @@ class RoleController extends BackendController
         }
         $set->deleted = 1;
         $set->updated_at = time();
-        $set->deleted = 0;
         $f = $set->save();
         if ($f) {
             $this->ajaxReturn(['id' => $set->id], "操作成功");
