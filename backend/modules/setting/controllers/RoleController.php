@@ -149,15 +149,15 @@ class RoleController extends BackendController
             $userMenu = RoleMenuModel::find()->select(['menu_id'])
                 ->where(["deleted" => 0, 'role_id' => $set->id])
                 ->asArray()->column();
-            return $this->render('grant-auth', ['menus' => $menus, 'userMenu' => $userMenu]);
+            return $this->render('grant-auth', ['list' => $menus, 'userMenu' => $userMenu]);
         }
         if (empty($set)) {
             $this->ajaxReturn(null, "无对应角色信息", 1);
         }
 
-        $menu_ids = $this->post('menu_ids');
+        $menu_ids = $this->post('menu');
         RoleMenuModel::saveRoleMenu($menu_ids, $set->id);
-        $this->ajaxReturn(null, "操作成功", 1);
+        $this->ajaxReturn(null, "操作成功");
     }
 
 }
